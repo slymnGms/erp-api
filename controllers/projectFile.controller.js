@@ -15,9 +15,7 @@ exports.create = (req, res) => {
   // Create a ProjectFile
   const projectFile = {
     name: req.body.name,
-    createdAt:Date.now(),
     createdBy:req.body.createdBy??null,
-    updatedAt:null,
     updatedBy:null
   };
 

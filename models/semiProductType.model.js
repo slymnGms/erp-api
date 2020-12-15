@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const SemiProductType = sequelize.define("semiProductType", {
+    const SemiProductType = sequelize.define("semiProductTypes", {
         name: {
             type: Sequelize.STRING
         },

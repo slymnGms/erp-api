@@ -22,9 +22,7 @@ exports.create = (req, res) => {
     isCompleted: req.body.isCompleted ? req.body.isCompleted : false,
     hasReceipt: req.body.hasReceipt ? req.body.hasReceipt : false,
     hasInvoice: req.body.hasInvoice ? req.body.hasInvoice : false,
-    createdAt:Date.now(),
     createdBy:req.body.createdBy??null,
-    updatedAt:null,
     updatedBy:null
   };
 

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const UserCuttintip = sequelize.define("userCuttintip", {
+    const UserCuttintip = sequelize.define("userCuttintips", {
         name: {
             type: Sequelize.STRING
         },

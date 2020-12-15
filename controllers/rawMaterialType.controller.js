@@ -1,8 +1,8 @@
 const db = require("../models");
-const Customer = db.customers;
+const RawMaterialType = db.rawMaterialTypes;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Customer
+// Create and Save a new RawMaterialType
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,109 +12,106 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Customer
-  const customer = {
+  // Create a RawMaterialType
+  const rawMaterialType = {
     name: req.body.name,
-    contactName: req.body.contactName,
-    contactEmail: req.body.contactEmail,
-    contactPhone: req.body.contactPhone,
     createdBy:req.body.createdBy??null,
     updatedBy:null
   };
 
-  // Save Customer in the database
-  Customer.create(customer)
+  // Save RawMaterialType in the database
+  RawMaterialType.create(rawMaterialType)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Customer."
+          err.message || "Some error occurred while creating the RawMaterialType."
       });
     });
 };
 
-// Retrieve all Customers from the database.
+// Retrieve all RawMaterialTypes from the database.
 exports.findAll = (req, res) => {
     const name = req.query.name;
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
   
-    Customer.findAll({ where: condition })
+    RawMaterialType.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving customers."
+            err.message || "Some error occurred while retrieving rawMaterialTypes."
         });
       });
   
 };
 
-// Find a single Customer with an id
+// Find a single RawMaterialType with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Customer.findByPk(id)
+    RawMaterialType.findByPk(id)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Customer with id=" + id
+          message: "Error retrieving RawMaterialType with id=" + id
         });
       });
 };
 
-// Update a Customer by the id in the request
+// Update a RawMaterialType by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Customer.update(req.body, {
+    RawMaterialType.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Customer was updated successfully."
+            message: "RawMaterialType was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Customer with id=${id}. Maybe Customer was not found or req.body is empty!`
+            message: `Cannot update RawMaterialType with id=${id}. Maybe RawMaterialType was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Customer with id=" + id
+          message: "Error updating RawMaterialType with id=" + id
         });
       });
 };
 
-// Delete a Customer with the specified id in the request
+// Delete a RawMaterialType with the specified id in the request
 exports.delete = (req, res) => {
     exports.delete = (req, res) => {
         const id = req.params.id;
       
-        Customer.destroy({
+        RawMaterialType.destroy({
           where: { id: id }
         })
           .then(num => {
             if (num == 1) {
               res.send({
-                message: "Customer was deleted successfully!"
+                message: "RawMaterialType was deleted successfully!"
               });
             } else {
               res.send({
-                message: `Cannot delete Customer with id=${id}. Maybe Customer was not found!`
+                message: `Cannot delete RawMaterialType with id=${id}. Maybe RawMaterialType was not found!`
               });
             }
           })
           .catch(err => {
             res.status(500).send({
-              message: "Could not delete Customer with id=" + id
+              message: "Could not delete RawMaterialType with id=" + id
             });
           });
       };

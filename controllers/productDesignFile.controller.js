@@ -1,8 +1,8 @@
 const db = require("../models");
-const Customer = db.customers;
+const ProductDesignFile = db.productDesignFiles;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Customer
+// Create and Save a new ProductDesignFile
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,109 +12,106 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Customer
-  const customer = {
+  // Create a ProductDesignFile
+  const productDesignFile = {
     name: req.body.name,
-    contactName: req.body.contactName,
-    contactEmail: req.body.contactEmail,
-    contactPhone: req.body.contactPhone,
     createdBy:req.body.createdBy??null,
     updatedBy:null
   };
 
-  // Save Customer in the database
-  Customer.create(customer)
+  // Save ProductDesignFile in the database
+  ProductDesignFile.create(productDesignFile)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Customer."
+          err.message || "Some error occurred while creating the ProductDesignFile."
       });
     });
 };
 
-// Retrieve all Customers from the database.
+// Retrieve all ProductDesignFiles from the database.
 exports.findAll = (req, res) => {
     const name = req.query.name;
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
   
-    Customer.findAll({ where: condition })
+    ProductDesignFile.findAll({ where: condition })
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving customers."
+            err.message || "Some error occurred while retrieving productDesignFiles."
         });
       });
   
 };
 
-// Find a single Customer with an id
+// Find a single ProductDesignFile with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Customer.findByPk(id)
+    ProductDesignFile.findByPk(id)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error retrieving Customer with id=" + id
+          message: "Error retrieving ProductDesignFile with id=" + id
         });
       });
 };
 
-// Update a Customer by the id in the request
+// Update a ProductDesignFile by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Customer.update(req.body, {
+    ProductDesignFile.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "Customer was updated successfully."
+            message: "ProductDesignFile was updated successfully."
           });
         } else {
           res.send({
-            message: `Cannot update Customer with id=${id}. Maybe Customer was not found or req.body is empty!`
+            message: `Cannot update ProductDesignFile with id=${id}. Maybe ProductDesignFile was not found or req.body is empty!`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Error updating Customer with id=" + id
+          message: "Error updating ProductDesignFile with id=" + id
         });
       });
 };
 
-// Delete a Customer with the specified id in the request
+// Delete a ProductDesignFile with the specified id in the request
 exports.delete = (req, res) => {
     exports.delete = (req, res) => {
         const id = req.params.id;
       
-        Customer.destroy({
+        ProductDesignFile.destroy({
           where: { id: id }
         })
           .then(num => {
             if (num == 1) {
               res.send({
-                message: "Customer was deleted successfully!"
+                message: "ProductDesignFile was deleted successfully!"
               });
             } else {
               res.send({
-                message: `Cannot delete Customer with id=${id}. Maybe Customer was not found!`
+                message: `Cannot delete ProductDesignFile with id=${id}. Maybe ProductDesignFile was not found!`
               });
             }
           })
           .catch(err => {
             res.status(500).send({
-              message: "Could not delete Customer with id=" + id
+              message: "Could not delete ProductDesignFile with id=" + id
             });
           });
       };

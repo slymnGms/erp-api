@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const RawMaterialType = sequelize.define("rawMaterialType", {
+    const RawMaterialType = sequelize.define("rawMaterialTypes", {
         name: {
             type: Sequelize.STRING
         },
