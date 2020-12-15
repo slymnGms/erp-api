@@ -16,8 +16,8 @@ exports.create = (req, res) => {
   const order = {
     name: req.body.name,
     duration: req.body.duration,
-    createdBy:req.body.createdBy??null,
-    updatedBy:null
+    createdBy: req.body.createdBy ?? null,
+    updatedBy: null
   };
 
   // Save Order in the database
@@ -35,86 +35,83 @@ exports.create = (req, res) => {
 
 // Retrieve all Orders from the database.
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
-  
-    Order.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving orders."
-        });
+  const name = req.query.name;
+  var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
+
+  Order.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving orders."
       });
-  
+    });
+
 };
 
 // Find a single Order with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    Order.findByPk(id)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error retrieving Order with id=" + id
-        });
+  Order.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Order with id=" + id
       });
+    });
 };
 
 // Update a Order by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    Order.update(req.body, {
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Order was updated successfully."
-          });
-        } else {
-          res.send({
-            message: `Cannot update Order with id=${id}. Maybe Order was not found or req.body is empty!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating Order with id=" + id
+  Order.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Order was updated successfully."
         });
+      } else {
+        res.send({
+          message: `Cannot update Order with id=${id}. Maybe Order was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Order with id=" + id
       });
+    });
 };
 
 // Delete a Order with the specified id in the request
 exports.delete = (req, res) => {
-    exports.delete = (req, res) => {
-        const id = req.params.id;
-      
-        Order.destroy({
-          where: { id: id }
-        })
-          .then(num => {
-            if (num == 1) {
-              res.send({
-                message: "Order was deleted successfully!"
-              });
-            } else {
-              res.send({
-                message: `Cannot delete Order with id=${id}. Maybe Order was not found!`
-              });
-            }
-          })
-          .catch(err => {
-            res.status(500).send({
-              message: "Could not delete Order with id=" + id
-            });
-          });
-      };
-      
+  const id = req.params.id;
+
+  Order.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Order was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Order with id=${id}. Maybe Order was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Order with id=" + id
+      });
+    });
 };

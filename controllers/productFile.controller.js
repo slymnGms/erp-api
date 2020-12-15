@@ -15,8 +15,8 @@ exports.create = (req, res) => {
   // Create a ProductFile
   const productFile = {
     name: req.body.name,
-    createdBy:req.body.createdBy??null,
-    updatedBy:null
+    createdBy: req.body.createdBy ?? null,
+    updatedBy: null
   };
 
   // Save ProductFile in the database
@@ -34,86 +34,83 @@ exports.create = (req, res) => {
 
 // Retrieve all ProductFiles from the database.
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
-  
-    ProductFile.findAll({ where: condition })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving productFiles."
-        });
+  const name = req.query.name;
+  var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
+
+  ProductFile.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving productFiles."
       });
-  
+    });
+
 };
 
 // Find a single ProductFile with an id
 exports.findOne = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    ProductFile.findByPk(id)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error retrieving ProductFile with id=" + id
-        });
+  ProductFile.findByPk(id)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving ProductFile with id=" + id
       });
+    });
 };
 
 // Update a ProductFile by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.id;
+  const id = req.params.id;
 
-    ProductFile.update(req.body, {
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "ProductFile was updated successfully."
-          });
-        } else {
-          res.send({
-            message: `Cannot update ProductFile with id=${id}. Maybe ProductFile was not found or req.body is empty!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating ProductFile with id=" + id
+  ProductFile.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "ProductFile was updated successfully."
         });
+      } else {
+        res.send({
+          message: `Cannot update ProductFile with id=${id}. Maybe ProductFile was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating ProductFile with id=" + id
       });
+    });
 };
 
 // Delete a ProductFile with the specified id in the request
 exports.delete = (req, res) => {
-    exports.delete = (req, res) => {
-        const id = req.params.id;
-      
-        ProductFile.destroy({
-          where: { id: id }
-        })
-          .then(num => {
-            if (num == 1) {
-              res.send({
-                message: "ProductFile was deleted successfully!"
-              });
-            } else {
-              res.send({
-                message: `Cannot delete ProductFile with id=${id}. Maybe ProductFile was not found!`
-              });
-            }
-          })
-          .catch(err => {
-            res.status(500).send({
-              message: "Could not delete ProductFile with id=" + id
-            });
-          });
-      };
-      
+  const id = req.params.id;
+
+  ProductFile.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "ProductFile was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete ProductFile with id=${id}. Maybe ProductFile was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete ProductFile with id=" + id
+      });
+    });
 };

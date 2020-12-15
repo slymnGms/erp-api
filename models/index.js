@@ -127,7 +127,7 @@ db.semiProducts.belongsTo(db.users,{
     as:"users",
 });
 //---productTypes
-db.semProductTypes.hasMany(db.semiProducts,{as:"semiProducts"});
+db.semiProductTypes.hasMany(db.semiProducts,{as:"semiProducts"});
 //---userCuttinTips
 db.userCuttinTips.belongsTo(db.users,{
     foreignKey:"userId",

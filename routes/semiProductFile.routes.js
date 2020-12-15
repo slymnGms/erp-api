@@ -1,20 +1,20 @@
-const semiSemiProductFileFiles = require("../controllers/semiSemiProductFileFile.controller.js");
+const semiProductFiles = require("../controllers/semiProductFile.controller.js");
 
 var router = require("express").Router();
 
 // Create a new SemiProductFile
-router.post("/", semiSemiProductFileFiles.create);
+router.post("/", semiProductFiles.create);
 
 // Retrieve all SemiProductFiles
-router.get("/", semiSemiProductFileFiles.findAll);
+router.get("/", semiProductFiles.findAll);
 
 // Retrieve a single SemiProductFile with id
-router.get("/:id", semiSemiProductFileFiles.findOne);
+router.get("/:id", semiProductFiles.findOne);
 
 // Update a SemiProductFile with id
-router.put("/:id", semiSemiProductFileFiles.update);
+router.put("/:id", semiProductFiles.update);
 
 // Delete a SemiProductFile with id
-router.delete("/:id", semiSemiProductFileFiles.delete);
+router.delete("/:id", semiProductFiles.delete);
 
 module.exports = router

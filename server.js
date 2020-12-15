@@ -18,12 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //db 
 const db = require("./models");
-// db.sequelize.sync();
+db.sequelize.sync();
 //for testing we reacreate them
-db.sequelize.sync({ force: true }).then(() => {
-  console.log('Drop and Resync Db');
-  initial();
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log('Drop and Resync Db');
+//   initial();
+// });
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Almak API." });
@@ -81,6 +81,7 @@ app.listen(PORT, () => {
 });
 
 function initial() {
+  const Role = db.role;
   Role.create({
     id: 1,
     name: "user"

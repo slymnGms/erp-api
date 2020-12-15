@@ -1,20 +1,20 @@
-const products = require("../controllers/product.controller.js");
+const semiProductDesignFiles = require("../controllers/semiProductDesignFile.controller.js");
 
 var router = require("express").Router();
 
-// Create a new Product
-router.post("/", products.create);
+// Create a new SemiProductDesignFile
+router.post("/", semiProductDesignFiles.create);
 
-// Retrieve all Products
-router.get("/", products.findAll);
+// Retrieve all SemiProductDesignFiles
+router.get("/", semiProductDesignFiles.findAll);
 
-// Retrieve a single Product with id
-router.get("/:id", products.findOne);
+// Retrieve a single SemiProductDesignFile with id
+router.get("/:id", semiProductDesignFiles.findOne);
 
-// Update a Product with id
-router.put("/:id", products.update);
+// Update a SemiProductDesignFile with id
+router.put("/:id", semiProductDesignFiles.update);
 
-// Delete a Product with id
-router.delete("/:id", products.delete);
+// Delete a SemiProductDesignFile with id
+router.delete("/:id", semiProductDesignFiles.delete);
 
 module.exports = router

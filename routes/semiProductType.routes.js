@@ -1,20 +1,20 @@
-const semiSemiProductTypeTypes = require("../controllers/semiSemiProductTypeType.controller.js");
+const semiProductTypes = require("../controllers/semiProductType.controller.js");
 
 var router = require("express").Router();
 
 // Create a new SemiProductType
-router.post("/", semiSemiProductTypeTypes.create);
+router.post("/", semiProductTypes.create);
 
 // Retrieve all SemiProductTypes
-router.get("/", semiSemiProductTypeTypes.findAll);
+router.get("/", semiProductTypes.findAll);
 
 // Retrieve a single SemiProductType with id
-router.get("/:id", semiSemiProductTypeTypes.findOne);
+router.get("/:id", semiProductTypes.findOne);
 
 // Update a SemiProductType with id
-router.put("/:id", semiSemiProductTypeTypes.update);
+router.put("/:id", semiProductTypes.update);
 
 // Delete a SemiProductType with id
-router.delete("/:id", semiSemiProductTypeTypes.delete);
+router.delete("/:id", semiProductTypes.delete);
 
 module.exports = router
