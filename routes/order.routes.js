@@ -1,20 +1,22 @@
-const orders = require("../controllers/order.controller.js");
+module.exports = app => {
+    const orders = require("../controllers/order.controller.js");
 
-var router = require("express").Router();
+    var router = require("express").Router();
 
-// Create a new Order
-router.post("/", orders.create);
+    // Create a new Order
+    router.post("/", orders.create);
 
-// Retrieve all Orders
-router.get("/", orders.findAll);
+    // Retrieve all Orders
+    router.get("/", orders.findAll);
 
-// Retrieve a single Order with id
-router.get("/:id", orders.findOne);
+    // Retrieve a single Order with id
+    router.get("/:id", orders.findOne);
 
-// Update a Order with id
-router.put("/:id", orders.update);
+    // Update a Order with id
+    router.put("/:id", orders.update);
 
-// Delete a Order with id
-router.delete("/:id", orders.delete);
+    // Delete a Order with id
+    router.delete("/:id", orders.delete);
 
-module.exports = router
+    app.use('/api/orders', router);
+};

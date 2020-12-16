@@ -1,5 +1,6 @@
 const db = require("../models");
 const Customer = db.customers;
+const Project = db.projects;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Customer
@@ -138,6 +139,21 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete Customer with id=" + id
+      });
+    });
+};
+
+// Extras
+exports.getCustomerProjects = (req, res) => {
+  const id = req.params.id;
+  var condition =  { customerId: id  };
+  Project.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Customer Projects with id=" + id
       });
     });
 };

@@ -8,7 +8,7 @@ var corsOptions = {
   origin: "http://localhost:8081"
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -16,9 +16,15 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 //db 
 const db = require("./models");
-db.sequelize.sync();
+// db.sequelize.sync();
 //for testing we reacreate them
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log('Drop and Resync Db');
@@ -32,48 +38,27 @@ app.get("/", (req, res) => {
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 //api routes
-var customers=require('./routes/customer.routes.js');
-var offers=require('./routes/offer.routes.js');
-var orders=require('./routes/order.routes.js');
-var personalEducationLevels=require('./routes/personalEducationLevel.routes.js');
-var products=require('./routes/product.routes.js');
-var productDesignFiles=require('./routes/productDesignFile.routes.js');
-var productFiles=require('./routes/productFile.routes.js');
-var productGenres=require('./routes/productGenre.routes.js');
-var productProcessTypes=require('./routes/productProcessType.routes.js');
-var productTypes=require('./routes/productType.routes.js');
-var projects=require('./routes/project.routes.js');
-var projectFiles=require('./routes/projectFile.routes.js');
-var rawMaterialTypes=require('./routes/rawMaterialType.routes.js');
-var semiProducts=require('./routes/semiProduct.routes.js');
-var semiProductDesignFiles=require('./routes/semiProductDesignFile.routes.js');
-var semiProductFiles=require('./routes/semiProductFile.routes.js');
-var semiProductTypes=require('./routes/semiProductType.routes.js');
-var userCuttintips=require('./routes/userCuttintip.routes.js');
-var userDebits=require('./routes/userDebit.routes.js');
-var userMachines=require('./routes/userMachine.routes.js');
-var userPersonalInformations=require('./routes/userPersonalInformation.routes.js');
-app._router.use('/customers/',customers);
-app._router.use('/offers/',offers);
-app._router.use('/orders/',orders);
-app._router.use('/personalEducationLevels/',personalEducationLevels);
-app._router.use('/products/',products);
-app._router.use('/productDesignFiles/',productDesignFiles);
-app._router.use('/productFiles/',productFiles);
-app._router.use('/productGenres/',productGenres);
-app._router.use('/productProcessTypes/',productProcessTypes);
-app._router.use('/productTypes/',productTypes);
-app._router.use('/projects/',projects);
-app._router.use('/projectFiles/',projectFiles);
-app._router.use('/rawMaterialTypes/',rawMaterialTypes);
-app._router.use('/semiProducts/',semiProducts);
-app._router.use('/semiProductDesignFiles/',semiProductDesignFiles);
-app._router.use('/semiProductFiles/',semiProductFiles);
-app._router.use('/semiProductTypes/',semiProductTypes);
-app._router.use('/userCuttintips/',userCuttintips);
-app._router.use('/userDebits/',userDebits);
-app._router.use('/userMachines/',userMachines);
-app._router.use('/userPersonalInformations/',userPersonalInformations);
+require("./routes/customer.routes")(app);
+require("./routes/offers.routes")(app);
+require("./routes/orders.routes")(app);
+require("./routes/personalEducationLevels.routes")(app);
+require("./routes/products.routes")(app);
+require("./routes/productDesignFiles.routes")(app);
+require("./routes/productFiles.routes")(app);
+require("./routes/productGenres.routes")(app);
+require("./routes/productProcessTypes.routes")(app);
+require("./routes/productTypes.routes")(app);
+require("./routes/projects.routes")(app);
+require("./routes/projectFiles.routes")(app);
+require("./routes/rawMaterialTypes.routes")(app);
+require("./routes/semiProducts.routes")(app);
+require("./routes/semiProductDesignFiles.routes")(app);
+require("./routes/semiProductFiles.routes")(app);
+require("./routes/semiProductTypes.routes")(app);
+require("./routes/userCuttintips.routes")(app);
+require("./routes/userDebits.routes")(app);
+require("./routes/userMachines.routes")(app);
+require("./routes/userPersonalInformations.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

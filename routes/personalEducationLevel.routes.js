@@ -1,20 +1,22 @@
-const personalEducationLevels = require("../controllers/personalEducationLevel.controller.js");
+module.exports = app => {
+    const personalEducationLevels = require("../controllers/personalEducationLevel.controller.js");
 
-var router = require("express").Router();
+    var router = require("express").Router();
 
-// Create a new PersonalEducationLevel
-router.post("/", personalEducationLevels.create);
+    // Create a new PersonalEducationLevel
+    router.post("/", personalEducationLevels.create);
 
-// Retrieve all PersonalEducationLevels
-router.get("/", personalEducationLevels.findAll);
+    // Retrieve all PersonalEducationLevels
+    router.get("/", personalEducationLevels.findAll);
 
-// Retrieve a single PersonalEducationLevel with id
-router.get("/:id", personalEducationLevels.findOne);
+    // Retrieve a single PersonalEducationLevel with id
+    router.get("/:id", personalEducationLevels.findOne);
 
-// Update a PersonalEducationLevel with id
-router.put("/:id", personalEducationLevels.update);
+    // Update a PersonalEducationLevel with id
+    router.put("/:id", personalEducationLevels.update);
 
-// Delete a PersonalEducationLevel with id
-router.delete("/:id", personalEducationLevels.delete);
+    // Delete a PersonalEducationLevel with id
+    router.delete("/:id", personalEducationLevels.delete);
 
-module.exports = router
+    app.use('/api/personalEducationLevels', router);
+};

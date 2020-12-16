@@ -1,20 +1,22 @@
-const semiProducts = require("../controllers/semiProduct.controller.js");
+module.exports = app => {
+    const semiProducts = require("../controllers/semiProduct.controller.js");
 
-var router = require("express").Router();
+    var router = require("express").Router();
 
-// Create a new SemiProduct
-router.post("/", semiProducts.create);
+    // Create a new SemiProduct
+    router.post("/", semiProducts.create);
 
-// Retrieve all SemiProducts
-router.get("/", semiProducts.findAll);
+    // Retrieve all SemiProducts
+    router.get("/", semiProducts.findAll);
 
-// Retrieve a single SemiProduct with id
-router.get("/:id", semiProducts.findOne);
+    // Retrieve a single SemiProduct with id
+    router.get("/:id", semiProducts.findOne);
 
-// Update a SemiProduct with id
-router.put("/:id", semiProducts.update);
+    // Update a SemiProduct with id
+    router.put("/:id", semiProducts.update);
 
-// Delete a SemiProduct with id
-router.delete("/:id", semiProducts.delete);
+    // Delete a SemiProduct with id
+    router.delete("/:id", semiProducts.delete);
 
-module.exports = router
+    app.use('/api/semiProducts', router);
+};

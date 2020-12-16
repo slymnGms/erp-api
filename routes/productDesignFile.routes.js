@@ -1,20 +1,22 @@
-const productDesignFiles = require("../controllers/productDesignFile.controller.js");
+module.exports = app => {
+    const productDesignFiles = require("../controllers/productDesignFile.controller.js");
 
-var router = require("express").Router();
+    var router = require("express").Router();
 
-// Create a new ProductDesignFileDesignFile
-router.post("/", productDesignFiles.create);
+    // Create a new ProductDesignFileDesignFile
+    router.post("/", productDesignFiles.create);
 
-// Retrieve all ProductDesignFiles
-router.get("/", productDesignFiles.findAll);
+    // Retrieve all ProductDesignFiles
+    router.get("/", productDesignFiles.findAll);
 
-// Retrieve a single ProductDesignFile with id
-router.get("/:id", productDesignFiles.findOne);
+    // Retrieve a single ProductDesignFile with id
+    router.get("/:id", productDesignFiles.findOne);
 
-// Update a ProductDesignFile with id
-router.put("/:id", productDesignFiles.update);
+    // Update a ProductDesignFile with id
+    router.put("/:id", productDesignFiles.update);
 
-// Delete a ProductDesignFile with id
-router.delete("/:id", productDesignFiles.delete);
+    // Delete a ProductDesignFile with id
+    router.delete("/:id", productDesignFiles.delete);
 
-module.exports = router
+    app.use('/api/productDesignFiles', router);
+};

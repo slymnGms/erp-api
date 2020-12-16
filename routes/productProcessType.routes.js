@@ -1,20 +1,22 @@
-const productProcessTypes = require("../controllers/productProcessType.controller.js");
+module.exports = app => {
+    const productProcessTypes = require("../controllers/productProcessType.controller.js");
 
-var router = require("express").Router();
+    var router = require("express").Router();
 
-// Create a new ProductProcessType
-router.post("/", productProcessTypes.create);
+    // Create a new ProductProcessType
+    router.post("/", productProcessTypes.create);
 
-// Retrieve all ProductProcessTypes
-router.get("/", productProcessTypes.findAll);
+    // Retrieve all ProductProcessTypes
+    router.get("/", productProcessTypes.findAll);
 
-// Retrieve a single ProductProcessType with id
-router.get("/:id", productProcessTypes.findOne);
+    // Retrieve a single ProductProcessType with id
+    router.get("/:id", productProcessTypes.findOne);
 
-// Update a ProductProcessType with id
-router.put("/:id", productProcessTypes.update);
+    // Update a ProductProcessType with id
+    router.put("/:id", productProcessTypes.update);
 
-// Delete a ProductProcessType with id
-router.delete("/:id", productProcessTypes.delete);
+    // Delete a ProductProcessType with id
+    router.delete("/:id", productProcessTypes.delete);
 
-module.exports = router
+    app.use('/api/productProcessTypes', router);
+};

@@ -1,20 +1,22 @@
-const productGenres = require("../controllers/productGenre.controller.js");
+module.exports = app => {
+    const productGenres = require("../controllers/productGenre.controller.js");
 
-var router = require("express").Router();
+    var router = require("express").Router();
 
-// Create a new ProductGenre
-router.post("/", productGenres.create);
+    // Create a new ProductGenre
+    router.post("/", productGenres.create);
 
-// Retrieve all ProductGenres
-router.get("/", productGenres.findAll);
+    // Retrieve all ProductGenres
+    router.get("/", productGenres.findAll);
 
-// Retrieve a single ProductGenre with id
-router.get("/:id", productGenres.findOne);
+    // Retrieve a single ProductGenre with id
+    router.get("/:id", productGenres.findOne);
 
-// Update a ProductGenre with id
-router.put("/:id", productGenres.update);
+    // Update a ProductGenre with id
+    router.put("/:id", productGenres.update);
 
-// Delete a ProductGenre with id
-router.delete("/:id", productGenres.delete);
+    // Delete a ProductGenre with id
+    router.delete("/:id", productGenres.delete);
 
-module.exports = router
+    app.use('/api/productGenres', router);
+};
