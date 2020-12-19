@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const ProjectFile = sequelize.define("projectFiles", {
+    const PersonalEducationLevel = sequelize.define("personalEducationLevels", {
         name: {
             type: Sequelize.STRING
         },
@@ -10,5 +10,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     });
-    return ProjectFile;
+    return PersonalEducationLevel;
 };

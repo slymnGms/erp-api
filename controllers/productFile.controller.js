@@ -1,8 +1,8 @@
 const db = require("../models");
-const ProjectFile = db.projectFiles;
+const ProductFile = db.productFiles;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new ProjectFile
+// Create and Save a new ProductFile
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,105 +12,105 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a ProjectFile
-  const projectFile = {
+  // Create a ProductFile
+  const productFile = {
     name: req.body.name,
     createdBy: req.body.createdBy ?? null,
     updatedBy: null
   };
 
-  // Save ProjectFile in the database
-  ProjectFile.create(projectFile)
+  // Save ProductFile in the database
+  ProductFile.create(productFile)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the ProjectFile."
+          err.message || "Some error occurred while creating the ProductFile."
       });
     });
 };
 
-// Retrieve all ProjectFiles from the database.
+// Retrieve all ProductFiles from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-  ProjectFile.findAll({ where: condition })
+  ProductFile.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving projectFiles."
+          err.message || "Some error occurred while retrieving productFiles."
       });
     });
 
 };
 
-// Find a single ProjectFile with an id
+// Find a single ProductFile with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.findByPk(id)
+  ProductFile.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving ProjectFile with id=" + id
+        message: "Error retrieving ProductFile with id=" + id
       });
     });
 };
 
-// Update a ProjectFile by the id in the request
+// Update a ProductFile by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.update(req.body, {
+  ProductFile.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was updated successfully."
+          message: "ProductFile was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update ProjectFile with id=${id}. Maybe ProjectFile was not found or req.body is empty!`
+          message: `Cannot update ProductFile with id=${id}. Maybe ProductFile was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating ProjectFile with id=" + id
+        message: "Error updating ProductFile with id=" + id
       });
     });
 };
 
-// Delete a ProjectFile with the specified id in the request
+// Delete a ProductFile with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.destroy({
+  ProductFile.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was deleted successfully!"
+          message: "ProductFile was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete ProjectFile with id=${id}. Maybe ProjectFile was not found!`
+          message: `Cannot delete ProductFile with id=${id}. Maybe ProductFile was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete ProjectFile with id=" + id
+        message: "Could not delete ProductFile with id=" + id
       });
     });
 };

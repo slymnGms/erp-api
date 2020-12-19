@@ -1,8 +1,8 @@
 const db = require("../models");
-const ProjectFile = db.projectFiles;
+const SemiProductType = db.semiProductTypes;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new ProjectFile
+// Create and Save a new SemiProductType
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,105 +12,105 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a ProjectFile
-  const projectFile = {
+  // Create a SemiProductType
+  const semiProductType = {
     name: req.body.name,
     createdBy: req.body.createdBy ?? null,
     updatedBy: null
   };
 
-  // Save ProjectFile in the database
-  ProjectFile.create(projectFile)
+  // Save SemiProductType in the database
+  SemiProductType.create(semiProductType)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the ProjectFile."
+          err.message || "Some error occurred while creating the SemiProductType."
       });
     });
 };
 
-// Retrieve all ProjectFiles from the database.
+// Retrieve all SemiProductTypes from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-  ProjectFile.findAll({ where: condition })
+  SemiProductType.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving projectFiles."
+          err.message || "Some error occurred while retrieving semiProductTypes."
       });
     });
 
 };
 
-// Find a single ProjectFile with an id
+// Find a single SemiProductType with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.findByPk(id)
+  SemiProductType.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving ProjectFile with id=" + id
+        message: "Error retrieving SemiProductType with id=" + id
       });
     });
 };
 
-// Update a ProjectFile by the id in the request
+// Update a SemiProductType by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.update(req.body, {
+  SemiProductType.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was updated successfully."
+          message: "SemiProductType was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update ProjectFile with id=${id}. Maybe ProjectFile was not found or req.body is empty!`
+          message: `Cannot update SemiProductType with id=${id}. Maybe SemiProductType was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating ProjectFile with id=" + id
+        message: "Error updating SemiProductType with id=" + id
       });
     });
 };
 
-// Delete a ProjectFile with the specified id in the request
+// Delete a SemiProductType with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.destroy({
+  SemiProductType.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was deleted successfully!"
+          message: "SemiProductType was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete ProjectFile with id=${id}. Maybe ProjectFile was not found!`
+          message: `Cannot delete SemiProductType with id=${id}. Maybe SemiProductType was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete ProjectFile with id=" + id
+        message: "Could not delete SemiProductType with id=" + id
       });
     });
 };

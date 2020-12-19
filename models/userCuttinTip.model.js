@@ -1,7 +1,13 @@
 module.exports = (sequelize, Sequelize) => {
-    const ProjectFile = sequelize.define("projectFiles", {
+    const UserCuttintip = sequelize.define("userCuttintips", {
         name: {
             type: Sequelize.STRING
+        },
+        startDate: {
+            type: Sequelize.DATE
+        },
+        endDate: {
+            type: Sequelize.DATE
         },
         createdBy: {
             type: Sequelize.STRING
@@ -10,5 +16,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     });
-    return ProjectFile;
+    return UserCuttintip;
 };

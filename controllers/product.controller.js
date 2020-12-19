@@ -1,8 +1,8 @@
 const db = require("../models");
-const ProjectFile = db.projectFiles;
+const Product = db.products;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new ProjectFile
+// Create and Save a new Product
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,105 +12,112 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a ProjectFile
-  const projectFile = {
+  // Create a Product
+  const product = {
     name: req.body.name,
+    cost: req.body.cost,
+    itemNumber: req.body.itemNumber,
+    orderNumber: req.body.orderNumber,
+    number: req.body.number,
+    duration: req.body.duration,
+    deliveryTime: req.body.deliveryTime,
+    startTime: req.body.startTime,
     createdBy: req.body.createdBy ?? null,
     updatedBy: null
   };
 
-  // Save ProjectFile in the database
-  ProjectFile.create(projectFile)
+  // Save Product in the database
+  Product.create(product)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the ProjectFile."
+          err.message || "Some error occurred while creating the Product."
       });
     });
 };
 
-// Retrieve all ProjectFiles from the database.
+// Retrieve all Products from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-  ProjectFile.findAll({ where: condition })
+  Product.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving projectFiles."
+          err.message || "Some error occurred while retrieving products."
       });
     });
 
 };
 
-// Find a single ProjectFile with an id
+// Find a single Product with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.findByPk(id)
+  Product.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving ProjectFile with id=" + id
+        message: "Error retrieving Product with id=" + id
       });
     });
 };
 
-// Update a ProjectFile by the id in the request
+// Update a Product by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.update(req.body, {
+  Product.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was updated successfully."
+          message: "Product was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update ProjectFile with id=${id}. Maybe ProjectFile was not found or req.body is empty!`
+          message: `Cannot update Product with id=${id}. Maybe Product was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating ProjectFile with id=" + id
+        message: "Error updating Product with id=" + id
       });
     });
 };
 
-// Delete a ProjectFile with the specified id in the request
+// Delete a Product with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.destroy({
+  Product.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was deleted successfully!"
+          message: "Product was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete ProjectFile with id=${id}. Maybe ProjectFile was not found!`
+          message: `Cannot delete Product with id=${id}. Maybe Product was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete ProjectFile with id=" + id
+        message: "Could not delete Product with id=" + id
       });
     });
 };

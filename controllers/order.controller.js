@@ -1,8 +1,8 @@
 const db = require("../models");
-const ProjectFile = db.projectFiles;
+const Order = db.orders;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new ProjectFile
+// Create and Save a new Order
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,105 +12,106 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a ProjectFile
-  const projectFile = {
+  // Create a Order
+  const order = {
     name: req.body.name,
+    duration: req.body.duration,
     createdBy: req.body.createdBy ?? null,
     updatedBy: null
   };
 
-  // Save ProjectFile in the database
-  ProjectFile.create(projectFile)
+  // Save Order in the database
+  Order.create(order)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the ProjectFile."
+          err.message || "Some error occurred while creating the Order."
       });
     });
 };
 
-// Retrieve all ProjectFiles from the database.
+// Retrieve all Orders from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-  ProjectFile.findAll({ where: condition })
+  Order.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving projectFiles."
+          err.message || "Some error occurred while retrieving orders."
       });
     });
 
 };
 
-// Find a single ProjectFile with an id
+// Find a single Order with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.findByPk(id)
+  Order.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving ProjectFile with id=" + id
+        message: "Error retrieving Order with id=" + id
       });
     });
 };
 
-// Update a ProjectFile by the id in the request
+// Update a Order by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.update(req.body, {
+  Order.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was updated successfully."
+          message: "Order was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update ProjectFile with id=${id}. Maybe ProjectFile was not found or req.body is empty!`
+          message: `Cannot update Order with id=${id}. Maybe Order was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating ProjectFile with id=" + id
+        message: "Error updating Order with id=" + id
       });
     });
 };
 
-// Delete a ProjectFile with the specified id in the request
+// Delete a Order with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.destroy({
+  Order.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was deleted successfully!"
+          message: "Order was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete ProjectFile with id=${id}. Maybe ProjectFile was not found!`
+          message: `Cannot delete Order with id=${id}. Maybe Order was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete ProjectFile with id=" + id
+        message: "Could not delete Order with id=" + id
       });
     });
 };

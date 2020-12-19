@@ -1,6 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-    const ProjectFile = sequelize.define("projectFiles", {
+    const Order = sequelize.define("orders", {
         name: {
+            type: Sequelize.STRING
+        },
+        duration: {
             type: Sequelize.STRING
         },
         createdBy: {
@@ -10,5 +13,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     });
-    return ProjectFile;
+    return Order;
 };

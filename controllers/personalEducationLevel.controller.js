@@ -1,8 +1,8 @@
 const db = require("../models");
-const ProjectFile = db.projectFiles;
+const PersonalEducationLevel = db.personalEducationLevels;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new ProjectFile
+// Create and Save a new PersonalEducationLevel
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.title) {
@@ -12,105 +12,105 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a ProjectFile
-  const projectFile = {
+  // Create a PersonalEducationLevel
+  const personalEducationLevel = {
     name: req.body.name,
     createdBy: req.body.createdBy ?? null,
     updatedBy: null
   };
 
-  // Save ProjectFile in the database
-  ProjectFile.create(projectFile)
+  // Save PersonalEducationLevel in the database
+  PersonalEducationLevel.create(personalEducationLevel)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the ProjectFile."
+          err.message || "Some error occurred while creating the PersonalEducationLevel."
       });
     });
 };
 
-// Retrieve all ProjectFiles from the database.
+// Retrieve all PersonalEducationLevels from the database.
 exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-  ProjectFile.findAll({ where: condition })
+  PersonalEducationLevel.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving projectFiles."
+          err.message || "Some error occurred while retrieving personalEducationLevels."
       });
     });
 
 };
 
-// Find a single ProjectFile with an id
+// Find a single PersonalEducationLevel with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.findByPk(id)
+  PersonalEducationLevel.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving ProjectFile with id=" + id
+        message: "Error retrieving PersonalEducationLevel with id=" + id
       });
     });
 };
 
-// Update a ProjectFile by the id in the request
+// Update a PersonalEducationLevel by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.update(req.body, {
+  PersonalEducationLevel.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was updated successfully."
+          message: "PersonalEducationLevel was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update ProjectFile with id=${id}. Maybe ProjectFile was not found or req.body is empty!`
+          message: `Cannot update PersonalEducationLevel with id=${id}. Maybe PersonalEducationLevel was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating ProjectFile with id=" + id
+        message: "Error updating PersonalEducationLevel with id=" + id
       });
     });
 };
 
-// Delete a ProjectFile with the specified id in the request
+// Delete a PersonalEducationLevel with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  ProjectFile.destroy({
+  PersonalEducationLevel.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "ProjectFile was deleted successfully!"
+          message: "PersonalEducationLevel was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete ProjectFile with id=${id}. Maybe ProjectFile was not found!`
+          message: `Cannot delete PersonalEducationLevel with id=${id}. Maybe PersonalEducationLevel was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete ProjectFile with id=" + id
+        message: "Could not delete PersonalEducationLevel with id=" + id
       });
     });
 };
