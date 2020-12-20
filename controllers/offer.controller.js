@@ -5,19 +5,37 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Offer
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
-
+  if (!req.body.duration) {
+    res.status(400).send({
+      message: "Duration can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.orderById) {
+    res.status(400).send({
+      message: "orderById can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
   // Create a Offer
   const offer = {
     name: req.body.name,
     duration: req.body.duration,
-    becomeOrder: req.body.becomeOrder,
-    createdBy: req.body.createdBy ?? null,
+    becomeOrder: req.body.becomeOrder ?? false,
+    createdBy: req.body.createdBy,
+    orderById: req.body.orderById,
     updatedBy: null
   };
 
@@ -69,6 +87,12 @@ exports.findOne = (req, res) => {
 
 // Update a Offer by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Offer.update(req.body, {
@@ -94,6 +118,12 @@ exports.update = (req, res) => {
 
 // Delete a Offer with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Offer.destroy({
