@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const UserCuttintip = sequelize.define("userCuttintips", {
+        //personel zimmet kullandığı kesici uç adı
         name: {
             type: Sequelize.STRING
         },

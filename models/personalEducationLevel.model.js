@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const PersonalEducationLevel = sequelize.define("personalEducationLevels", {
+        //personel eğitim seviye adı
         name: {
             type: Sequelize.STRING
         },
