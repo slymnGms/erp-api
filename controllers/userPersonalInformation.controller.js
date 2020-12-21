@@ -5,9 +5,57 @@ const Op = db.Sequelize.Op;
 // Create and Save a new UserPersonalInformation
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.firstName) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "firstName can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.surName) {
+    res.status(400).send({
+      message: "surName can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.identityNumber) {
+    res.status(400).send({
+      message: "identityNumber can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.birthDate) {
+    res.status(400).send({
+      message: "birthDate can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.birthPlace) {
+    res.status(400).send({
+      message: "birthPlace can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.address) {
+    res.status(400).send({
+      message: "address can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.phone) {
+    res.status(400).send({
+      message: "phone can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.userId) {
+    res.status(400).send({
+      message: "userId can not be empty!"
     });
     return;
   }
@@ -15,14 +63,15 @@ exports.create = (req, res) => {
   // Create a UserPersonalInformation
   const userPersonalInformation = {
     firstName: req.body.firstName,
-    middleName: req.body.middleName,
+    middleName: req.body.middleName?? "",
     surName: req.body.surName,
     identityNumber: req.body.identityNumber,
     birthDate: req.body.birthDate,
     birthPlace: req.body.birthPlace,
     address: req.body.address,
     phone: req.body.phone,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
+    userId: req.body.userId,
     updatedBy: null
   };
 
@@ -74,6 +123,12 @@ exports.findOne = (req, res) => {
 
 // Update a UserPersonalInformation by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   UserPersonalInformation.update(req.body, {
@@ -99,6 +154,12 @@ exports.update = (req, res) => {
 
 // Delete a UserPersonalInformation with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   UserPersonalInformation.destroy({

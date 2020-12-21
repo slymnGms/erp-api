@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const SemiProductType = sequelize.define("semiProductTypes", {
+        //yarı mamül türü adı
         name: {
             type: Sequelize.STRING
         },

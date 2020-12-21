@@ -1,13 +1,32 @@
 const db = require("../models");
 const Order = db.orders;
+const Product = db.products;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Order
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "Name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.becomeOrderDate) {
+    res.status(400).send({
+      message: "becomeOrderDate can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.preparedBy) {
+    res.status(400).send({
+      message: "preparedBy can not be empty!"
     });
     return;
   }
@@ -15,8 +34,9 @@ exports.create = (req, res) => {
   // Create a Order
   const order = {
     name: req.body.name,
-    duration: req.body.duration,
-    createdBy: req.body.createdBy ?? null,
+    becomeOrderDate: req.body.becomeOrderDate,
+    preparedBy: req.body.preparedBy,
+    createdBy: req.body.createdBy,
     updatedBy: null
   };
 
@@ -68,6 +88,12 @@ exports.findOne = (req, res) => {
 
 // Update a Order by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Order.update(req.body, {
@@ -93,6 +119,12 @@ exports.update = (req, res) => {
 
 // Delete a Order with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Order.destroy({
@@ -112,6 +144,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete Order with id=" + id
+      });
+    });
+};
+// Extras
+exports.getOrderProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { orderId: id  };
+  Product.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Order Products with id=" + id
       });
     });
 };

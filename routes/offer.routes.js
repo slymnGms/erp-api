@@ -18,5 +18,8 @@ module.exports = app => {
     // Delete a Offer with id
     router.delete("/:id", offers.delete);
 
+    // Retrieve Products of a Offer
+    router.get("/:id/products", offers.getOfferProducts);
+
     app.use('/api/offers', router);
 };

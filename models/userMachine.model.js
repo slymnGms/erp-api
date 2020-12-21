@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const UserMachine = sequelize.define("userMachines", {
+        //personel kullandığı makina adı
         name: {
             type: Sequelize.STRING
         },

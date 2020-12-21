@@ -1,13 +1,20 @@
 const db = require("../models");
 const ProductProcessType = db.productProcessTypes;
+const Product=db.products;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new ProductProcessType
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
     });
     return;
   }
@@ -15,7 +22,7 @@ exports.create = (req, res) => {
   // Create a ProductProcessType
   const productProcessType = {
     name: req.body.name,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
     updatedBy: null
   };
 
@@ -67,6 +74,12 @@ exports.findOne = (req, res) => {
 
 // Update a ProductProcessType by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   ProductProcessType.update(req.body, {
@@ -92,6 +105,12 @@ exports.update = (req, res) => {
 
 // Delete a ProductProcessType with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   ProductProcessType.destroy({
@@ -111,6 +130,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete ProductProcessType with id=" + id
+      });
+    });
+};
+// Extras
+exports.getProductProcessTypeProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { productProcessTypeId: id  };
+  Product.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving ProductProcessType Products with id=" + id
       });
     });
 };

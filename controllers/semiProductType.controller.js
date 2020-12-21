@@ -1,13 +1,20 @@
 const db = require("../models");
 const SemiProductType = db.semiProductTypes;
+const SemiProduct = db.semiProducts;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new SemiProductType
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
     });
     return;
   }
@@ -15,7 +22,7 @@ exports.create = (req, res) => {
   // Create a SemiProductType
   const semiProductType = {
     name: req.body.name,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
     updatedBy: null
   };
 
@@ -67,6 +74,12 @@ exports.findOne = (req, res) => {
 
 // Update a SemiProductType by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   SemiProductType.update(req.body, {
@@ -92,6 +105,12 @@ exports.update = (req, res) => {
 
 // Delete a SemiProductType with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   SemiProductType.destroy({
@@ -111,6 +130,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete SemiProductType with id=" + id
+      });
+    });
+};
+// Extras
+exports.getSemiProductTypeSemiProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { semiProductTypeId: id  };
+  SemiProduct.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving SemiProductType SemiProducts with id=" + id
       });
     });
 };

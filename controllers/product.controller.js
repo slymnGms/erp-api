@@ -1,13 +1,106 @@
 const db = require("../models");
 const Product = db.products;
+const ProductDesignFile=db.productDesignFiles;
+const ProductFile=db.productFiles;
+const SemiProduct=db.semiProducts;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Product
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.itemNumber) {
+    res.status(400).send({
+      message: "itemNumber can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.orderNumber) {
+    res.status(400).send({
+      message: "orderNumber can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.number) {
+    res.status(400).send({
+      message: "number can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.cost) {
+    res.status(400).send({
+      message: "cost can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.duration) {
+    res.status(400).send({
+      message: "duration can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.deliveryTime) {
+    res.status(400).send({
+      message: "deliveryTime can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.startTime) {
+    res.status(400).send({
+      message: "startTime can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.projectId) {
+    res.status(400).send({
+      message: "projectId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.offerId) {
+    res.status(400).send({
+      message: "offerId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.orderId) {
+    res.status(400).send({
+      message: "orderId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.productGenreId) {
+    res.status(400).send({
+      message: "productGenreId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.productProcessTypeId) {
+    res.status(400).send({
+      message: "productProcessTypeId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.productTypeId) {
+    res.status(400).send({
+      message: "productTypeId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.producedById) {
+    res.status(400).send({
+      message: "producedById can not be empty!"
     });
     return;
   }
@@ -15,14 +108,21 @@ exports.create = (req, res) => {
   // Create a Product
   const product = {
     name: req.body.name,
-    cost: req.body.cost,
     itemNumber: req.body.itemNumber,
     orderNumber: req.body.orderNumber,
     number: req.body.number,
+    cost: req.body.cost,
     duration: req.body.duration,
     deliveryTime: req.body.deliveryTime,
     startTime: req.body.startTime,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
+    projectId: req.body.projectId,
+    offerId: req.body.offerId,
+    orderId: req.body.orderId,
+    productGenreId: req.body.productGenreId,
+    productProcessTypeId: req.body.productProcessTypeId,
+    productTypeId: req.body.productTypeId,
+    producedById: req.body.producedById,
     updatedBy: null
   };
 
@@ -74,6 +174,12 @@ exports.findOne = (req, res) => {
 
 // Update a Product by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Product.update(req.body, {
@@ -99,6 +205,12 @@ exports.update = (req, res) => {
 
 // Delete a Product with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Product.destroy({
@@ -118,6 +230,46 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete Product with id=" + id
+      });
+    });
+};
+// Extras
+exports.getProductProductDesignFiles = (req, res) => {
+  const id = req.params.id;
+  var condition =  { productId: id  };
+  ProductDesignFile.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Product ProductDesignFiless with id=" + id
+      });
+    });
+};
+exports.getProductProductFiles = (req, res) => {
+  const id = req.params.id;
+  var condition =  { productId: id  };
+  ProductFile.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Product ProductFiles with id=" + id
+      });
+    });
+};
+exports.getProductSemiProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { productId: id  };
+  SemiProduct.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Product SemiProducts with id=" + id
       });
     });
 };

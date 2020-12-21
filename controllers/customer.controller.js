@@ -30,12 +30,12 @@ exports.create = (req, res) => {
     });
     return;
   }
-  // if (!req.body.createdBy) {
-  //   res.status(400).send({
-  //     message: "createdBy can not be empty!"
-  //   });
-  //   return;
-  // }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
 
   // Create a Customer
   const customer = {
@@ -43,7 +43,7 @@ exports.create = (req, res) => {
     contactName: req.body.contactName,
     contactEmail: req.body.contactEmail,
     contactPhone: req.body.contactPhone,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
     updatedBy: null
   };
 
@@ -95,6 +95,12 @@ exports.findOne = (req, res) => {
 
 // Update a Customer by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Customer.update(req.body, {
@@ -120,6 +126,12 @@ exports.update = (req, res) => {
 
 // Delete a Customer with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Customer.destroy({

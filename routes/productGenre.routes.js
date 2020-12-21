@@ -18,5 +18,8 @@ module.exports = app => {
     // Delete a ProductGenre with id
     router.delete("/:id", productGenres.delete);
 
+    // Retrieve Products of a ProductGenre
+    router.get("/:id/products", productGenres.getProductGenreProducts);
+
     app.use('/api/productGenres', router);
 };

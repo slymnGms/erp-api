@@ -1,22 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
     const SemiProduct = sequelize.define("semiProducts", {
-        number: {
-            type: Sequelize.STRING
-        },
+        //yarı mamül kodu
         code: {
             type: Sequelize.STRING
         },
-        rawMaterialNumber: {
+        //yarı mamül numarası
+        number: {
             type: Sequelize.STRING
         },
+        //yarı mamül oluşturma tarihi
+        startTime: {
+            type: Sequelize.DATE
+        },
+        //yarı mamül üretim süresi
         duration: {
             type: Sequelize.STRING
         },
+        //yarı mamül teslim tarihi
         deliveryTime: {
             type: Sequelize.DATE
         },
-        startTime: {
-            type: Sequelize.DATE
+        //hammadde numarası
+        rawMaterialNumber: {
+            type: Sequelize.STRING
         },
         createdBy: {
             type: Sequelize.STRING

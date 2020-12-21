@@ -18,5 +18,14 @@ module.exports = app => {
     // Delete a Product with id
     router.delete("/:id", products.delete);
 
+    // Retrieve ProductDesignFiless of a Product
+    router.get("/:id/productDesignFiles", products.getProductProductDesignFiles);
+
+    // Retrieve ProductFiles of a Product
+    router.get("/:id/productFiles", products.getProductProductFiles);
+
+    // Retrieve SemiProducts of a Product
+    router.get("/:id/semiProducts", products.getProductSemiProducts);
+
     app.use('/api/products', router);
 };

@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const ProductDesignFile = sequelize.define("productDesignFiles", {
+        //ürün tasarım dosyası adı/yolu
         name: {
             type: Sequelize.STRING
         },
