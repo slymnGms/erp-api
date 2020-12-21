@@ -18,5 +18,8 @@ module.exports = app => {
     // Delete a ProductProcessType with id
     router.delete("/:id", productProcessTypes.delete);
 
+    // Retrieve Products of a ProductProcessType
+    router.get("/:id/products", productProcessTypes.getProductProcessTypeProducts);
+
     app.use('/api/productProcessTypes', router);
 };

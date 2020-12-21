@@ -18,5 +18,8 @@ module.exports = app => {
     // Delete a RawMaterialType with id
     router.delete("/:id", rawMaterialTypes.delete);
 
+    // Retrieve SemiProducts of a RawMaterialType
+    router.get("/:id/semiProducts", rawMaterialTypes.getRawMaterialTypeSemiProducts);
+
     app.use('/api/rawMaterialTypes', router);
 };

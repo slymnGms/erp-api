@@ -18,5 +18,8 @@ module.exports = app => {
     // Delete a Order with id
     router.delete("/:id", orders.delete);
 
+    // Retrieve Products of a Order
+    router.get("/:id/products", orders.getOrderProducts);
+
     app.use('/api/orders', router);
 };

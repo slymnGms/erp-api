@@ -18,5 +18,11 @@ module.exports = app => {
     // Delete a SemiProduct with id
     router.delete("/:id", semiProducts.delete);
 
+    // Retrieve SemiProductDesignFiless of a Product
+    router.get("/:id/semiProductDesignFiles", semiProducts.getSemiProductSemiProductDesignFiles);
+
+    // Retrieve SemiProductFiles of a Product
+    router.get("/:id/semiProductFiles", semiProducts.getSemiProductSemiProductFiles);
+
     app.use('/api/semiProducts', router);
 };

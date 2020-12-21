@@ -1,5 +1,6 @@
 const db = require("../models");
 const SemiProductType = db.semiProductTypes;
+const SemiProduct = db.semiProducts;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new SemiProductType
@@ -129,6 +130,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete SemiProductType with id=" + id
+      });
+    });
+};
+// Extras
+exports.getSemiProductTypeSemiProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { semiProductTypeId: id  };
+  SemiProduct.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving SemiProductType SemiProducts with id=" + id
       });
     });
 };

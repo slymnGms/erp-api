@@ -1,5 +1,9 @@
 const db = require("../models");
 const Project = db.projects;
+const Offer = db.offers;
+const Order = db.orders;
+const Product = db.products;
+const ProjectFile = db.projectFiles;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Project
@@ -149,6 +153,59 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete Project with id=" + id
+      });
+    });
+};
+// Extras
+exports.getProjectFiles = (req, res) => {
+  const id = req.params.id;
+  var condition =  { projectId: id  };
+  ProjectFile.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Project ProjectFiless with id=" + id
+      });
+    });
+};
+exports.getProjectOffers = (req, res) => {
+  const id = req.params.id;
+  var condition =  { projectId: id  };
+  Offer.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Project Offers with id=" + id
+      });
+    });
+};
+exports.getProjectOrders = (req, res) => {
+  const id = req.params.id;
+  var condition =  { projectId: id  };
+  Order.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Project Orders with id=" + id
+      });
+    });
+};
+exports.getProjectProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { projectId: id  };
+  Product.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Project Products with id=" + id
       });
     });
 };

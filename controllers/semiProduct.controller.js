@@ -1,5 +1,7 @@
 const db = require("../models");
 const SemiProduct = db.semiProducts;
+const SemiProductDesignFile=db.semiProductDesignFiles;
+const SemiProductFile=db.semiProductFiles;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new SemiProduct
@@ -192,6 +194,33 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete SemiProduct with id=" + id
+      });
+    });
+};
+// Extras
+exports.getSemiProductSemiProductDesignFiles = (req, res) => {
+  const id = req.params.id;
+  var condition =  { semiProductId: id  };
+  SemiProductDesignFile.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving SemiProduct SemiProductDesignFiless with id=" + id
+      });
+    });
+};
+exports.getSemiProductSemiProductFiles = (req, res) => {
+  const id = req.params.id;
+  var condition =  { semiProductId: id  };
+  SemiProductFile.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving SemiProduct SemiProductFiles with id=" + id
       });
     });
 };

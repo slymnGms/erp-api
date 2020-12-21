@@ -18,5 +18,17 @@ module.exports = app => {
     // Delete a Customer with id
     router.delete("/:id", projects.delete);
 
+    // Retrieve ProjectFiles of a Project
+    router.get("/:id/projectFiles", projects.getProjectFiles);
+
+    // Retrieve Offers of a Project
+    router.get("/:id/offers", projects.getProjectOffers);
+
+    // Retrieve Orders of a Project
+    router.get("/:id/orders", projects.getProjectOrders);
+
+    // Retrieve Products of a Project
+    router.get("/:id/products", projects.getProjectProducts);
+
     app.use('/api/projects', router);
 };

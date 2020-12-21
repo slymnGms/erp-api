@@ -48,7 +48,9 @@ db.userPersonalInformations = require("./userPersonalInformation.model.js")(sequ
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //---customer
+//altındaki projeler
 db.customers.hasMany(db.projects, { as: "projects" });
+//////////////////////////////////////////////////////////////////////////////////////////////
 //---offer
 //bağlı olduğu proje
 db.offers.belongsTo(db.projects, {
@@ -127,6 +129,7 @@ db.productFiles.belongsTo(db.products, {
     foreignKey: "productId",
     as: "products",
 });
+//////////////////////////////////////////////////////////////////////////////////////////////
 //---productDesignFiles
 db.productDesignFiles.belongsTo(db.products, {
     foreignKey: "productId",
@@ -198,14 +201,15 @@ db.semiProducts.hasMany(db.semiProductDesignFiles, { as: "semiProductDesignFiles
 db.semiProducts.hasMany(db.semiProductFiles, { as: "semiProductFiles" });
 //////////////////////////////////////////////////////////////////////////////////////////////
 //---semiProductFiles
-db.semiProductFiles.belongsTo(db.products, {
-    foreignKey: "productId",
-    as: "products",
+db.semiProductFiles.belongsTo(db.semiProducts, {
+    foreignKey: "semiProductId",
+    as: "semiProducts",
 });
+
 //---semiProductDesignFiles
-db.semiProductDesignFiles.belongsTo(db.products, {
-    foreignKey: "productId",
-    as: "products",
+db.semiProductDesignFiles.belongsTo(db.semiProducts, {
+    foreignKey: "semiProductId",
+    as: "semiProducts",
 });
 //////////////////////////////////////////////////////////////////////////////////////////////
 //---semiProductTypes

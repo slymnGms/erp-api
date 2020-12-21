@@ -1,5 +1,6 @@
 const db = require("../models");
 const ProductGenre = db.productGenres;
+const Product=db.products;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new ProductGenre
@@ -129,6 +130,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete ProductGenre with id=" + id
+      });
+    });
+};
+// Extras
+exports.getProductGenreProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { productGenreId: id  };
+  Product.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving ProductGenre Products with id=" + id
       });
     });
 };

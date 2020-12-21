@@ -1,5 +1,6 @@
 const db = require("../models");
 const RawMaterialType = db.rawMaterialTypes;
+const SemiProduct = db.semiProducts;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new RawMaterialType
@@ -129,6 +130,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete RawMaterialType with id=" + id
+      });
+    });
+};
+// Extras
+exports.getRawMaterialTypeSemiProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { rawMaterialTypeId: id  };
+  SemiProduct.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving RawMaterialType Products with id=" + id
       });
     });
 };

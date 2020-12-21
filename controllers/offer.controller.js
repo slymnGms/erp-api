@@ -1,5 +1,6 @@
 const db = require("../models");
 const Offer = db.offers;
+const Product = db.products;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Offer
@@ -143,6 +144,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete Offer with id=" + id
+      });
+    });
+};
+// Extras
+exports.getOfferProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { offerId: id  };
+  Product.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving Offer Products with id=" + id
       });
     });
 };

@@ -1,5 +1,6 @@
 const db = require("../models");
 const ProductProcessType = db.productProcessTypes;
+const Product=db.products;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new ProductProcessType
@@ -129,6 +130,20 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete ProductProcessType with id=" + id
+      });
+    });
+};
+// Extras
+exports.getProductProcessTypeProducts = (req, res) => {
+  const id = req.params.id;
+  var condition =  { productProcessTypeId: id  };
+  Product.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving ProductProcessType Products with id=" + id
       });
     });
 };
