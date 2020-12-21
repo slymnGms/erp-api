@@ -5,9 +5,27 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Project
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.description) {
+    res.status(400).send({
+      message: "description can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.customerId) {
+    res.status(400).send({
+      message: "customerId can not be empty!"
     });
     return;
   }
@@ -22,7 +40,8 @@ exports.create = (req, res) => {
     isCompleted: req.body.isCompleted ? req.body.isCompleted : false,
     hasReceipt: req.body.hasReceipt ? req.body.hasReceipt : false,
     hasInvoice: req.body.hasInvoice ? req.body.hasInvoice : false,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
+    customerId: req.body.customerId,
     updatedBy: null
   };
 
@@ -74,6 +93,12 @@ exports.findOne = (req, res) => {
 
 // Update a Project by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Project.update(req.body, {
@@ -99,6 +124,12 @@ exports.update = (req, res) => {
 
 // Delete a Project with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   Project.destroy({

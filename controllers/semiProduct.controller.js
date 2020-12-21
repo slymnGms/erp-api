@@ -5,22 +5,86 @@ const Op = db.Sequelize.Op;
 // Create and Save a new SemiProduct
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.code) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "code can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.number) {
+    res.status(400).send({
+      message: "number can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.startTime) {
+    res.status(400).send({
+      message: "startTime can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.duration) {
+    res.status(400).send({
+      message: "duration can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.deliveryTime) {
+    res.status(400).send({
+      message: "deliveryTime can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.rawMaterialNumber) {
+    res.status(400).send({
+      message: "rawMaterialNumber can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.productId) {
+    res.status(400).send({
+      message: "productId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.rawMaterialTypeId) {
+    res.status(400).send({
+      message: "rawMaterialTypeId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.semiProductTypeId) {
+    res.status(400).send({
+      message: "semiProductTypeId can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.producedById) {
+    res.status(400).send({
+      message: "producedById can not be empty!"
     });
     return;
   }
 
   // Create a SemiProduct
   const semiProduct = {
-    number: req.body.number,
     code: req.body.code,
-    rawMaterialNumber: req.body.rawMaterialNumber,
+    number: req.body.number,
+    startTime: req.body.startTime,
     duration: req.body.duration,
     deliveryTime: req.body.deliveryTime,
-    startTime: req.body.startTime,
-    createdBy: req.body.createdBy ?? null,
+    rawMaterialNumber: req.body.rawMaterialNumber,
+    createdBy: req.body.createdBy,
+    productId: req.body.productId,
+    rawMaterialTypeId: req.body.rawMaterialTypeId,
+    semiProductTypeId: req.body.semiProductTypeId,
+    producedById: req.body.producedById,
     updatedBy: null
   };
 
@@ -72,6 +136,12 @@ exports.findOne = (req, res) => {
 
 // Update a SemiProduct by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   SemiProduct.update(req.body, {
@@ -97,6 +167,12 @@ exports.update = (req, res) => {
 
 // Delete a SemiProduct with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   SemiProduct.destroy({
