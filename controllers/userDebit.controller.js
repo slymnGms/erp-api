@@ -5,9 +5,33 @@ const Op = db.Sequelize.Op;
 // Create and Save a new UserDebit
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Content can not be empty!"
+      message: "name can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.startDate) {
+    res.status(400).send({
+      message: "startDate can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.endDate) {
+    res.status(400).send({
+      message: "endDate can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.createdBy) {
+    res.status(400).send({
+      message: "createdBy can not be empty!"
+    });
+    return;
+  }
+  if (!req.body.userId) {
+    res.status(400).send({
+      message: "userId can not be empty!"
     });
     return;
   }
@@ -17,7 +41,8 @@ exports.create = (req, res) => {
     name: req.body.name,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
-    createdBy: req.body.createdBy ?? null,
+    createdBy: req.body.createdBy,
+    userId: req.body.userId,
     updatedBy: null
   };
 
@@ -69,6 +94,12 @@ exports.findOne = (req, res) => {
 
 // Update a UserDebit by the id in the request
 exports.update = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   UserDebit.update(req.body, {
@@ -94,6 +125,12 @@ exports.update = (req, res) => {
 
 // Delete a UserDebit with the specified id in the request
 exports.delete = (req, res) => {
+  if (!req.body.updatedBy) {
+    res.status(400).send({
+      message: "updatedBy can not be empty!"
+    });
+    return;
+  }
   const id = req.params.id;
 
   UserDebit.destroy({
