@@ -59,6 +59,8 @@ require("./routes/userCuttintip.routes")(app);
 require("./routes/userDebit.routes")(app);
 require("./routes/userMachine.routes")(app);
 require("./routes/userPersonalInformation.routes")(app);
+//api file routes
+require("./routes/file.route")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
