@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 
 //db 
 const db = require("./models");
- db.sequelize.sync();
+//db.sequelize.sync();
 //for testing we reacreate them
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log('Drop and Resync Db');

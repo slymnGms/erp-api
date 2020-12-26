@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const UserCuttintip = sequelize.define("userCuttintips", {
+    const UserCuttinTip = sequelize.define("userCuttinTips", {
         //personel zimmet kullandığı kesici uç adı
         name: {
             type: Sequelize.STRING
@@ -17,5 +17,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         }
     });
-    return UserCuttintip;
+    return UserCuttinTip;
 };

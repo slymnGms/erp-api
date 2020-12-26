@@ -1,22 +1,22 @@
 module.exports = app => {
-    const userCuttintips = require("../controllers/userCuttintip.controller.js");
+    const userCuttinTips = require("../controllers/userCuttintip.controller.js");
 
     var router = require("express").Router();
 
     // Create a new UserCuttintip
-    router.post("/", userCuttintips.create);
+    router.post("/", userCuttinTips.create);
 
     // Retrieve all UserCuttintips
-    router.get("/", userCuttintips.findAll);
+    router.get("/", userCuttinTips.findAll);
 
     // Retrieve a single UserCuttintip with id
-    router.get("/:id", userCuttintips.findOne);
+    router.get("/:id", userCuttinTips.findOne);
 
     // Update a UserCuttintip with id
-    router.put("/:id", userCuttintips.update);
+    router.put("/:id", userCuttinTips.update);
 
     // Delete a UserCuttintip with id
-    router.delete("/:id", userCuttintips.delete);
+    router.delete("/:id", userCuttinTips.delete);
 
     app.use('/api/userCuttintips', router);
 };

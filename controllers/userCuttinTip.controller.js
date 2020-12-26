@@ -1,5 +1,5 @@
 const db = require("../models");
-const UserCuttintip = db.userCuttintips;
+const UserCuttintip = db.userCuttinTips;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new UserCuttintip
